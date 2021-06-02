@@ -1,10 +1,14 @@
 #include <iostream>
 
-int main() 
+void PrintIntroduction(int Difficulty) 
 {
-    std::cout << "You are a wizard, breaking into Severus Snape's chamber with potion ingredient chamber. Unfortunately, professor Mcgonagall protected shelves with anctient chants";
-    std::cout << std::endl;
-    std::cout << "You need to solve math sequence to continue..." << std::endl;
+    std::cout << "\nYou are a wizard, breaking into a level " << Difficulty << " Severus Snape's chamber with potion ingredient chamber. Unfortunately, professor Mcgonagall protected shelves with anctient chants\n";
+    std::cout << "You need to solve math sequence to continue...\n\n";
+}
+
+bool PlayGame(int Difficulty) 
+{
+    PrintIntroduction(Difficulty);
 
     int CodeA = 4;
     int CodeB = 6;
@@ -20,9 +24,7 @@ int main()
 
     int GuessA, GuessB, GuessC;
     std::cout << std::endl;
-    std::cin >> GuessA;
-    std::cin >> GuessB;
-    std::cin >> GuessC;
+    std::cin >> GuessA >> GuessB >> GuessC;
     std::cout << std::endl;
 
     int GuessSum = GuessA + GuessB + GuessC;
@@ -30,9 +32,26 @@ int main()
 
     if (GuessSum == CodeSum && GuessProduct == CodeProduct) {
         std::cout << "You win!";
+        return true;
     } else {
         std::cout << "Sorry, but u've lost :(";
+        return false;
     }
+}
 
+int main() 
+{
+    int LevelDiffictulty = 1;
+    while (true)
+    {
+        bool bLevelComplete = PlayGame();
+        std::cin.clear();
+        std::cin.ignore();
+
+        if (bLevelComplete) {
+            ++LevelDiffictulty;
+        }
+    }
+    
     return 0;
 }

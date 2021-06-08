@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 void PrintIntroduction(int Difficulty) 
 {
@@ -10,9 +11,9 @@ bool PlayGame(int Difficulty)
 {
     PrintIntroduction(Difficulty);
 
-    int CodeA = 4;
-    int CodeB = 6;
-    int CodeC = 9;
+    int CodeA = rand() % Difficulty + Difficulty;
+    int CodeB = rand() % Difficulty + Difficulty;
+    int CodeC = rand() % Difficulty + Difficulty;
 
     int CodeSum = CodeA + CodeB + CodeC;
     int CodeProduct  = CodeA * CodeB * CodeC;
@@ -31,20 +32,25 @@ bool PlayGame(int Difficulty)
     int GuessProduct = GuessA * GuessB * GuessC;
 
     if (GuessSum == CodeSum && GuessProduct == CodeProduct) {
-        std::cout << "You win!";
+        std::cout << "Congratz! You solved the puzzle!\n";
         return true;
     } else {
-        std::cout << "Sorry, but u've lost :(";
+        std::cout << "Sorry, but u've lost :( Try again...\n";
         return false;
     }
 }
 
 int main() 
 {
+    // set seed for rand
+    srand(time(NULL));
+
     int LevelDiffictulty = 1;
-    while (true)
+    const int MaxDifficulty = 5;
+
+    while (LevelDiffictulty <= MaxDifficulty)
     {
-        bool bLevelComplete = PlayGame();
+        bool bLevelComplete = PlayGame(LevelDiffictulty);
         std::cin.clear();
         std::cin.ignore();
 
@@ -53,5 +59,6 @@ int main()
         }
     }
     
+    std::cout << "\n ~~~ Perfect, seem it's got unlocked! Now grab all the stuff and let's get outta there!";
     return 0;
 }
